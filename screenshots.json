@@ -1,0 +1,191 @@
+[
+  {
+    "src": "images/network_topline_web_metrics.png",
+    "title": "Network-Level Topline Web Metrics",
+    "description": "Interactive dashboard displaying electricity generation capacity and actual generation data across U.S. states, balancing authorities, and individual power plants",
+    "purpose": "Improved leadership understanding of the potential of Tableau for existing EIA data",
+    "industry": "Media",
+    "tools": ["SQL Server", "Power BI"],
+    "visuals": ["Line", "Table"]
+  },
+  {
+    "src": "images/BA_state_plant_capacity_generation.png",
+    "title": "Capacity and Generation by Energy Source",
+    "description": "Interactive dashboard displaying electricity generation capacity and actual generation data across U.S. states, balancing authorities, and individual power plants",
+    "purpose": "Improved leadership understanding of the potential of Tableau for existing EIA data",
+    "industry": "Energy",
+    "tools": ["Oracle SQL", "Tableau"],
+    "visuals": ["Map", "Bar", "Line"]
+  },
+  {
+    "src": "images/CEMS_totals.png",
+    "title": "EPA CEMS Daily State-Level Emissions",
+    "description": "Analysis and visualization of daily state-level emissions totals from EPA's Continuous Emissions Monitoring System (CEMS) data",
+    "purpose": "Increased available data (CEMS) to EIA analysts and summarized data in a Tableau dashboard",
+    "industry": "Energy",
+    "tools": ["R", "Oracle SQL", "Tableau"],
+    "visuals": ["Line", "Map", "Table"]
+  },
+  {
+    "src": "images/consumption_source_sector.png",
+    "title": "U.S. Energy Consumption by Source and Sector (2016)",
+    "description": "A detailed Sankey diagram illustrating the flow of energy consumption in the U.S. by source and economic sector for the year 2016",
+    "purpose": "Initiated discussions about innovative ways to visualize data during a monthly EIA data visualization community group exercise",
+    "industry": "Energy",
+    "tools": ["Excel", "R"],
+    "visuals": ["Sankey"]
+  },
+  {
+    "src": "images/ERCOT_outages.png",
+    "title": "Texas (ERCOT) Winter Freeze Plant Outages",
+    "description": "Visualization of power plant outages in the ERCOT region during a severe winter freeze, correlated with temperature (cooling degree days)",
+    "purpose": "Increase operational situational awareness relevant to current events",
+    "industry": "Energy",
+    "tools": ["Excel", "Tableau"],
+    "visuals": ["Bar", "Line", "Map", "Table"]
+  },
+  {
+    "src": "images/ERCOT_wind_generation.png",
+    "title": "Texas (ERCOT) Wind Generation",
+    "description": "Charts and key performance indicators highlighting trends and patterns in wind power generation within the ERCOT grid",
+    "purpose": "Automated the scraping of pdf files and placement into a PowerPoint slide for the weekly electricity markets meeting to improve access to market intelligence",
+    "industry": "Energy",
+    "tools": ["pdf", "R", "PowerPoint"],
+    "visuals": ["Card", "Bar"]
+  },
+  {
+    "src": "images/generator_additions_ppt.png",
+    "title": "Generation Additions Survey Status Updates (PowerPoint)",
+    "description": "Presentation slides outlining status updates for planned electricity generator additions, including maps and summary charts",
+    "purpose": "Automated the creation visuals in a PowerPoint slide for the weekly electricity markets meeting to improve access to market intelligence",
+    "industry": "Energy",
+    "tools": ["Oracle SQL", "R", "PowerPoint"],
+    "visuals": ["Bar", "Map", "Table"]
+  },
+  {
+    "src": "images/generator_additions_tableau.png",
+    "title": "Generator Additions Survey Status Updates (Tableau)",
+    "description": "Interactive Tableau dashboard providing current status and details for planned electricity generator additions across the country",
+    "purpose": "Recreated a PowerPoint slide to increase leadership awareness of the potential of Tableau",
+    "industry": "Energy",
+    "tools": ["Oracle SQL", "Tableau"],
+    "visuals": ["Bar", "Map", "Table"]
+  },
+  {
+    "src": "images/mean_center_capacity_by_tech.png",
+    "title": "Mean Center of Capacity by Generating Technology",
+    "description": "Interactive dashboard displaying the mean center of capacity (modified from mean center of population) to show the geographical and capacity shift of electric generating technologies in the United States",
+    "purpose": "Experimental",
+    "industry": "Energy",
+    "tools": ["Excel", "Tableau"],
+    "visuals": ["Map"]
+  },
+  {
+    "src": "images/MISO_interconnection_queue.png",
+    "title": "Central U.S. (MISO) Interconnection Queue",
+    "description": "Interactive Tableau dashboard providing past and upcoming interconnections to the MISO electric grid by year and fuel source",
+    "purpose": "Improved market intelligence, awareness and data quality by exploring and comparing EIA data with alternative sources for generator data",
+    "industry": "Energy",
+    "tools": ["Excel", "Tableau"],
+    "visuals": ["Map", "Bar", "Table", "Webpage"]
+  },
+  {
+    "src": "images/MISO_LRZ_load.png",
+    "title": "Central U.S. (MISO) Hourly Load by Region",
+    "description": "Interactive Tableau dashboard showing 2 weeks of hourly load by Local Resource Zone and temperatures in major cities within MISO",
+    "purpose": "Increase awareness of data product from the RTO Portal project and demonstrate the potential of Tableau",
+    "industry": "Energy",
+    "tools": ["Python", "PostgreSQL", "Tableau"],
+    "visuals": ["Map", "Bar", "Line"]
+  },
+  {
+    "src": "images/NG_plant_generation_consumption_CAvsCT.png",
+    "title": "Natural Gas Combined Cycle Plants and Operations by Gas vs Steam Turbines",
+    "description": "Interactive Tableau dashboard for user-selected natural gas-powered combined cycle plants to visualize the generator details, geographical location and consumption, generation and heat rate by prime mover",
+    "purpose": "Assessed survey operations by facilitating data quality checking of consumption and generation by prime mover and demonstrated the potential of Tableau",
+    "industry": "Energy",
+    "tools": ["Oracle SQL", "Tableau"],
+    "visuals": ["Table", "Map", "Bar"]
+  },
+  {
+    "src": "images/NOAA_hurricane_map.png",
+    "title": "2018 NOAA Hurricane Michael Track and Weather Station Map",
+    "description": "Interactive leaflet map created with R to display the NOAA Hurricane Michael track (2018), balancing authority outlines and weather stations used to explore and select weather stations affected by the hurricane",
+    "purpose": "Rapidly prototyped tool to select weather stations relevant to tracking the hurricane activity for reporting and operational intelligence",
+    "industry": "Energy",
+    "tools": ["R", "Leaflet"],
+    "visuals": ["Map"]
+  },
+  {
+    "src": "images/nuclear_outages.png",
+    "title": "Recreation of EIA U.S. Nuclear Outages data product",
+    "description": "Interactive Tableau dashboard visualizing U.S. nuclear outages as a replica of the existing data product",
+    "purpose": "Demonstrated to leadership the potential of Tableau to replicate existing EIA data products with the potential to reduce product development costs",
+    "industry": "Energy",
+    "tools": ["Oracle SQL", "Tableau"],
+    "visuals": ["Map", "Line", "Table"]
+  },
+  {
+    "src": "images/plant_status_infrastructure_map.png",
+    "title": "EIA-860 Monthly Generator Status Report with Transmission Infrastructure",
+    "description": "Interactive leaflet map created with R to display generator energy source and status, summary, and transmission line infrastructure",
+    "purpose": "Supported survey operations to visualize survey status geographically and improve situational awareness",
+    "industry": "Energy",
+    "tools": ["Oracle SQL", "R"],
+    "visuals": ["Map", "Card"]
+  },
+  {
+    "src": "images/plant_status_map.png",
+    "title": "EIA-860 Monthly Generator Status Report",
+    "description": "Interactive leaflet map created with R to display generator status and summary",
+    "purpose": "Supported survey operations to visualize survey status geographically and improve situational awareness",
+    "industry": "Energy",
+    "tools": ["Oracle SQL", "R"],
+    "visuals": ["Map", "Card"]
+  },
+  {
+    "src": "images/rtoportal_MISO_operations.png",
+    "title": "Central U.S. Wholesale Electricity Market and Operations Data Product Prototype",
+    "description": "Interactive data product to explore the Central U.S. Midcontintent Independent System Operator (MISO) region electricity market and operations data, including generation fuel mix, load, temperature of major cities, and day-ahead and real-time hub prices",
+    "purpose": "Prototype dashboard and visualization tool for a new data product published on the EIA website for public consumption",
+    "industry": "Energy",
+    "tools": ["PostgreSQL", "Tableau"],
+    "visuals": ["Map", "Line"]
+  },
+  {
+    "src": "images/rtoportal1.png",
+    "title": "Wholesale Electricity Market and Operations Data Product Main Page",
+    "description": "Main page for the wholesale electricity market and operations web page and navigation with expandable menus for each of the 7 regions and a description of the product",
+    "purpose": "Prototype main page and navigation for a new data product published on the EIA website for public consumption",
+    "industry": "Energy",
+    "tools": ["HTML"],
+    "visuals": ["Map"]
+  },
+  {
+    "src": "images/rtoportal2.png",
+    "title": "Wholesale Electricity Market and Operations Data Product Main Page (ISO-NE, LMP)",
+    "description": "Main page for the wholesale electricity market and operations web page and navigation with the New England region section of Locational Marginal Prices (LMP) expanded showing the data repository, location types, and static line charts",
+    "purpose": "Prototype to demonstrate the expanded LMP section for a new data product internal to EIA staff and proposed to be published on the EIA website for public consumption",
+    "industry": "Energy",
+    "tools": ["HTML"],
+    "visuals": ["Map", "Line", "Table"]
+  },
+  {
+    "src": "images/rtoportal3.png",
+    "title": "Wholesale Electricity Market and Operations Data Product Main Page (MISO, Load & Temperature)",
+    "description": "Main page for the wholesale electricity market and operations web page and navigation with the Central U.S. region section of load and temperature expanded showing the data repository, location types, and static load charts",
+    "purpose": "Prototype to demonstrate the expanded load and temperature section for a new data product internal to EIA staff and proposed to be published on the EIA website for public consumption",
+    "industry": "Energy",
+    "tools": ["HTML"],
+    "visuals": ["Map", "Line", "Table"]
+  },
+  {
+    "src": "images/state_county_plant_capacity_generation_consumption.png",
+    "title": "Monthly Generation and Fuel Consumption by Generator Technology",
+    "description": "Interactive dashboard to select state, county and/or power plant to visualize the capacity by technology and monthly generation and consumption",
+    "purpose": "Demonstrated to leadership the potential of Tableau to visualize existing EIA data",
+    "industry": "Energy",
+    "tools": ["HTML"],
+    "visuals": ["Map", "Table", "Bar"]
+  }
+]

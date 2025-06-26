@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytically Ray - Portfolio</title>
+    <!-- Tailwind CSS CDN for easy styling and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            color: #374151; /* Dark gray text */
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .thumbnail {
+            width: 100%;
+            height: 100%; /* Fixed height for thumbnails */
+            max-height: 200px;
+            object-fit: cover; /* Ensures images cover the area without distortion */
+            transition: transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .thumbnail:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.75); /* Dark overlay */
+        }
+        .modal-content {
+            /* Flex column for vertical stacking */
+            display: flex;
+            flex-direction: column;
+            
+            /* Max width/height to fit screen, with internal padding */
+            width: 90vw;
+            max-width: 900px;
+            height: 90vh; /* Allow some vertical padding/margin */
+            max-height: 800px;
+            width: auto; /* Allow width to be determined by content up to max-width */
+            
+            /* Background, rounded corners, shadow */
+            background-color: white;
+            border-radius: 1rem; /* rounded-xl */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-2xl */
+            padding: 1.5rem; /* p-6 */
+            
+            overflow-y: auto; /* Enable vertical scrolling for content if it overflows */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .modal-content img {
+            width: 90%;
+            max-height: 800px; /* Image takes up to 70% of modal height */
+            object-fit: contain; /* Ensures the whole image is visible */
+            margin: 0 auto 1rem auto; /* top, horizontal auto-center, bottom */
+            flex-shrink: 0;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header Section -->
+    <header class="text-center mb-4">
+        <h1 class="text-5xl md:text-5xl font-extrabold text-blue-800 tracking-tight mb-2">Ray's Portfolio</h1>
+        <p class="text-xl md:text-1xl text-gray-700">Explore a selection of my past projects and accomplishments.</p>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container mx-auto bg-white p-6 md:p-4 rounded-2xl shadow-xl">
+
+        <!-- Filter Section -->
+        <section class="mb-4 p-6 bg-blue-50 rounded-xl shadow-inner">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                <!-- Industry Filter -->
+                <div>
+                    <label for="filter-industry" class="block text-gray-700 text-sm font-bold mb-2">Industry:</label>
+                    <select id="filter-industry" class="shadow border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white hover:border-blue-500 transition-all duration-200">
+                        <option value="">All Industries</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <!-- Tools Filter -->
+                <div>
+                    <label for="filter-tools" class="block text-gray-700 text-sm font-bold mb-2">Tools:</label>
+                    <select id="filter-tools" class="shadow border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white hover:border-blue-500 transition-all duration-200">
+                        <option value="">All Tools</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <!-- Visuals Filter -->
+                <div>
+                    <label for="filter-visuals" class="block text-gray-700 text-sm font-bold mb-2">Visuals:</label>
+                    <select id="filter-visuals" class="shadow border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white hover:border-blue-500 transition-all duration-200">
+                        <option value="">All Visuals</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <!-- Title Free-Text Search -->
+                <div>
+                    <label for="search-title" class="block text-gray-700 text-sm font-bold mb-2">Search Title:</label>
+                    <input type="text" id="search-title" placeholder="e.g., Dashboard, Report" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-blue-500 transition-all duration-200">
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button id="reset-filters" class="bg-gray-400 hover:bg-gray-500 text-white py-1 px-4 rounded-full shadow-md transition duration-100">Reset Filters</button>
+            </div>
+        </section>
+
+        <!-- Portfolio Grid Section -->
+        <section>
+            <!-- <h2 class="text-3xl font-semibold text-blue-700 mb-6">My Projects:</h2> -->
+            <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Portfolio items will be dynamically loaded here by JavaScript -->
+            </div>
+            <p id="no-results" class="text-center text-gray-500 text-lg mt-8 hidden">No results found for the selected filters. Please adjust your criteria.</p>
+        </section>
+
+    </main>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-overlay">
+        <div class="relative modal-content">
+            <button id="close-modal" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-4xl font-bold leading-none">&times;</button>
+            <img id="modal-image" src="" alt="Expanded Screenshot">
+            <!-- Arrow Navigation Buttons -->
+            <div class="absolute top-1/2 left-0 transform -translate-y-1/2 pl-2">
+                <button id="prev-item" class="text-3xl text-gray-600 hover:text-gray-900 font-bold px-2">&#8592;</button>
+            </div>
+            <div class="absolute top-1/2 right-0 transform -translate-y-1/2 pr-2">
+                <button id="next-item" class="text-3xl text-gray-600 hover:text-gray-900 font-bold px-2">&#8594;</button>
+            </div>
+            <h3 id="modal-title" class="text-xl font-semibold text-left text-gray-800 mb-1"></h3>
+            <p id="modal-description" class="text-sm italic text-gray-700 text-left mb-3 leading-relaxed"></p> <!-- New description element -->
+            <p id="modal-purpose" class="text-xs text-gray-600 text-left mb-1 leading-relaxed"></p> <!-- New purpose element -->
+            <p id="modal-industry" class="text-xs text-gray-600 text-left mb-1"></p>
+            <p id="modal-tools" class="text-xs text-gray-600 text-left mb-1"></p>
+            <p id="modal-visuals" class="text-xs text-gray-600 text-left mb-1"></p>
+        </div>
+    </div>
+
+    <script>
+        let screenshotsData = [];
+        let currentFilteredList = [];
+        let currentIndex = -1;
+        
+        async function loadData() {
+            try {
+                const response = await fetch('screenshots.json');
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                screenshotsData = await response.json();
+                currentFilteredList = screenshotsData;
+                populateFilters(); // Populate dropdowns
+                renderPortfolio(screenshotsData); // Render full portfolio
+            } catch (error) {
+                console.error("Error loading JSON data:", error);
+                document.getElementById('portfolio-grid').innerHTML = `<p class="text-center text-red-500 text-lg">Failed to load portfolio data. Please check the console or JSON file.</p>`;
+            }
+        }
+
+        // --- DOM Elements ---
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const imageModal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalPurpose = document.getElementById('modal-purpose');
+        const modalIndustry = document.getElementById('modal-industry');
+        const modalTools = document.getElementById('modal-tools');
+        const modalVisuals = document.getElementById('modal-visuals');
+        const closeModalBtn = document.getElementById('close-modal');
+        const noResultsMessage = document.getElementById('no-results');
+
+        // Filter elements
+        const filterIndustrySelect = document.getElementById('filter-industry');
+        const filterToolsSelect = document.getElementById('filter-tools');
+        const filterVisualsSelect = document.getElementById('filter-visuals');
+        const searchTitleInput = document.getElementById('search-title');
+        const resetFiltersBtn = document.getElementById('reset-filters');
+
+        // --- Functions ---
+
+        /**
+         * Populates the filter dropdowns with unique values from screenshotsData.
+         */
+        function populateFilters() {
+            const uniqueIndustries = new Set();
+            const uniqueTools = new Set();
+            const uniqueVisuals = new Set();
+
+            screenshotsData.forEach(item => {
+                if (item.industry) uniqueIndustries.add(item.industry);
+                if (Array.isArray(item.tools)) {
+                    item.tools.forEach(tool => uniqueTools.add(tool));
+                }
+                if (Array.isArray(item.visuals)) {
+                    item.visuals.forEach(visual => uniqueVisuals.add(visual));
+                }
+            });
+
+            // Populate Industry dropdown
+            Array.from(uniqueIndustries).sort().forEach(industry => {
+                const option = document.createElement('option');
+                option.value = industry;
+                option.textContent = industry;
+                filterIndustrySelect.appendChild(option);
+            });
+
+            // Populate Tools dropdown
+            Array.from(uniqueTools).sort().forEach(tool => {
+                const option = document.createElement('option');
+                option.value = tool;
+                option.textContent = tool;
+                filterToolsSelect.appendChild(option);
+            });
+
+            // Populate Visuals dropdown
+            Array.from(uniqueVisuals).sort().forEach(visual => {
+                const option = document.createElement('option');
+                option.value = visual;
+                option.textContent = visual;
+                filterVisualsSelect.appendChild(option);
+            });
+        }
+
+        /**
+         * Renders the portfolio items based on the provided data.
+         * @param {Array} data - The array of screenshot objects to render.
+         */
+        function renderPortfolio(data) {
+            portfolioGrid.innerHTML = ''; // Clear existing items
+            if (data.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                return;
+            } else {
+                noResultsMessage.classList.add('hidden');
+            }
+
+            data.forEach(item => {
+                const projectCard = document.createElement('div');
+                projectCard.classList.add('bg-gray-50', 'rounded-xl', 'shadow-lg', 'overflow-hidden', 'cursor-pointer', 'transition', 'duration-300', 'ease-in-out', 'hover:shadow-xl', 'flex', 'flex-col', 'border', 'border-black');
+                projectCard.setAttribute('aria-label', `View ${item.title}`);
+
+                // Image thumbnail
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = item.title;
+                img.classList.add('thumbnail', 'rounded-t-xl');
+                img.onerror = function() {
+                    // Fallback image on error, using a red placeholder and specific text
+                    this.src = `https://placehold.co/800x600/FCA5A5/B91C1C?text=Image+Error`;
+                    this.alt = 'Image failed to load';
+                    console.error(`Failed to load image: ${item.src}`);
+                };
+
+                // Project details
+                const details = document.createElement('div');
+                details.classList.add('p-5', 'flex-grow');
+
+                const title = document.createElement('h3');
+                title.textContent = item.title;
+                title.classList.add('text-base', 'font-semibold', 'text-gray-900', 'mb-1');
+
+                details.appendChild(title);
+
+                // Display metadata fields as comma-separated if they are arrays
+                if (item.industry) {
+                    const industry = document.createElement('p');
+                    industry.innerHTML = `<strong>Industry:</strong> ${item.industry}`;
+                    industry.classList.add('text-xs', 'text-gray-600', 'mb-1');
+                    details.appendChild(industry);
+                }
+                if (Array.isArray(item.tools) && item.tools.length > 0) {
+                    const tools = document.createElement('p');
+                    tools.innerHTML = `<strong>Tools:</strong> ${item.tools.join(', ')}`;
+                    tools.classList.add('text-xs', 'text-gray-600', 'mb-1');
+                    details.appendChild(tools);
+                }
+                if (Array.isArray(item.visuals) && item.visuals.length > 0) {
+                    const visuals = document.createElement('p');
+                    visuals.innerHTML = `<strong>Visuals:</strong> ${item.visuals.join(', ')}`;
+                    visuals.classList.add('text-xs', 'text-gray-600', 'mb-1');
+                    details.appendChild(visuals);
+                }
+
+                projectCard.appendChild(img);
+                projectCard.appendChild(details);
+
+                // Add click listener to open modal, passing the entire item object
+                projectCard.addEventListener('click', () => openModal(item));
+
+                portfolioGrid.appendChild(projectCard);
+            });
+        }
+
+        /**
+         * Applies the selected filters and renders the filtered portfolio.
+         */
+        function applyFilters() {
+            const selectedIndustry = filterIndustrySelect.value;
+            const selectedTool = filterToolsSelect.value;
+            const selectedVisual = filterVisualsSelect.value;
+            const searchText = searchTitleInput.value.toLowerCase().trim();
+
+            const filteredData = screenshotsData.filter(item => {
+                // Industry Filter
+                const industryMatch = !selectedIndustry || item.industry === selectedIndustry;
+
+                // Tools Filter (check if item.tools array contains the selected tool)
+                const toolsMatch = !selectedTool || (Array.isArray(item.tools) && item.tools.includes(selectedTool));
+
+                // Visuals Filter (check if item.visuals array contains the selected visual)
+                const visualsMatch = !selectedVisual || (Array.isArray(item.visuals) && item.visuals.includes(selectedVisual));
+
+                // Title Text Search (case-insensitive, partial match)
+                const titleMatch = !searchText || item.title.toLowerCase().includes(searchText);
+
+                // All conditions must be true for the item to be included
+                return industryMatch && toolsMatch && visualsMatch && titleMatch;
+            });
+
+            renderPortfolio(filteredData);
+            currentFilteredList = filteredData;
+        }
+
+        /**
+         * Resets all filter dropdowns and the search input, then applies filters.
+         */
+        function resetFilters() {
+            filterIndustrySelect.value = '';
+            filterToolsSelect.value = '';
+            filterVisualsSelect.value = '';
+            searchTitleInput.value = '';
+            applyFilters();
+        }
+
+        /**
+         * Opens the image modal with the specified item's data.
+         * @param {Object} item - The screenshot object containing all its metadata.
+         */
+         function openModal(item) {
+            currentIndex = currentFilteredList.findIndex(i => i === item);
+            if (currentIndex === -1) {
+                console.warn("Item not found in filtered list.");
+                currentFilteredList = screenshotsData; // fallback
+                currentIndex = currentFilteredList.findIndex(i => i === item);
+            }
+
+            updateModal(currentFilteredList[currentIndex]);
+        }
+
+
+        function updateModal(item) {
+            modalImage.src = item.src;
+            modalImage.alt = item.title;
+            modalTitle.textContent = item.title;
+            // Display description, hide if empty
+            modalDescription.textContent = item.description ? item.description : '';
+            modalDescription.classList.toggle('hidden', !item.description);
+
+            // Display purpose, hide if empty
+            modalPurpose.innerHTML = item.purpose ? `<strong>Purpose/Impact:</strong> ${item.purpose}` : '';
+            modalPurpose.classList.toggle('hidden', !item.purpose);
+
+            modalIndustry.innerHTML = item.industry ? `<strong>Industry:</strong> ${item.industry}` : '';
+            modalTools.innerHTML = Array.isArray(item.tools) ? `<strong>Tools:</strong> ${item.tools.join(', ')}` : '';
+            modalVisuals.innerHTML = Array.isArray(item.visuals) ? `<strong>Visuals:</strong> ${item.visuals.join(', ')}` : '';
+
+            imageModal.classList.remove('hidden');
+            imageModal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+
+        /**
+         * Closes the image modal.
+         */
+        function closeModal() {
+            imageModal.classList.add('hidden');
+            imageModal.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+            modalImage.src = ''; // Clear image to save memory
+            // Clear modal text to ensure clean state for next open
+            modalTitle.textContent = '';
+            modalDescription.textContent = ''; // Clear description
+            modalPurpose.textContent = ''; // Clear purpose
+            modalIndustry.textContent = '';
+            modalTools.textContent = '';
+            modalVisuals.textContent = '';
+        }
+
+        // --- Event Listeners ---
+        // Listen for changes on filter dropdowns
+        filterIndustrySelect.addEventListener('change', applyFilters);
+        filterToolsSelect.addEventListener('change', applyFilters);
+        filterVisualsSelect.addEventListener('change', applyFilters);
+
+        // Listen for input (typing) in the search box
+        searchTitleInput.addEventListener('input', applyFilters);
+
+        // Listen for reset button click
+        resetFiltersBtn.addEventListener('click', resetFilters);
+
+        // Close modal when close button is clicked
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside the modal content
+        imageModal.addEventListener('click', (event) => {
+            if (event.target === imageModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal when Escape key is pressed
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !imageModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        document.getElementById('prev-item').addEventListener('click', () => {
+            if (currentFilteredList.length === 0) return;
+            currentIndex = (currentIndex - 1 + currentFilteredList.length) % currentFilteredList.length;
+            updateModal(currentFilteredList[currentIndex]);
+        });
+
+        document.getElementById('next-item').addEventListener('click', () => {
+            if (currentFilteredList.length === 0) return;
+            currentIndex = (currentIndex + 1) % currentFilteredList.length;
+            updateModal(currentFilteredList[currentIndex]);
+        });
+
+    </script>
+</body>
+</html>
