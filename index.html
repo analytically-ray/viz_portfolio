@@ -80,7 +80,7 @@
     <!-- Header Section -->
     <header class="text-center mb-4">
         <h1 class="text-5xl md:text-5xl font-extrabold text-blue-800 tracking-tight mb-2">Ray's Portfolio</h1>
-        <p class="text-xl md:text-1xl text-gray-700">Explore a selection of my past projects and accomplishments.</p>
+        <p class="text-lg md:text-1xl text-gray-700">Explore a selection of my projects, generally ordered by recency and impact.</p>
     </header>
 
     <!-- Main Content Container -->
@@ -145,11 +145,11 @@
             <button id="close-modal" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-4xl font-bold leading-none">&times;</button>
             <img id="modal-image" src="" alt="Expanded Screenshot">
             <!-- Arrow Navigation Buttons -->
-            <div class="absolute top-1/2 left-0 transform -translate-y-1/2 pl-2">
-                <button id="prev-item" class="text-3xl text-gray-600 hover:text-gray-900 font-bold px-2">&#8592;</button>
+            <div class="absolute top-1/2 left-4 transform -translate-y-1/2 pl-2">
+                <button id="prev-img" class="text-3xl text-gray-600 hover:text-gray-900 font-bold px-2">&#8592;</button>
             </div>
-            <div class="absolute top-1/2 right-0 transform -translate-y-1/2 pr-2">
-                <button id="next-item" class="text-3xl text-gray-600 hover:text-gray-900 font-bold px-2">&#8594;</button>
+            <div class="absolute top-1/2 right-4 transform -translate-y-1/2 pr-2">
+                <button id="next-img" class="text-3xl text-gray-600 hover:text-gray-900 font-bold px-2">&#8594;</button>
             </div>
             <h3 id="modal-title" class="text-xl font-semibold text-left text-gray-800 mb-1"></h3>
             <p id="modal-description" class="text-sm italic text-gray-700 text-left mb-3 leading-relaxed"></p> <!-- New description element -->
@@ -163,7 +163,8 @@
     <script>
         let screenshotsData = [];
         let currentFilteredList = [];
-        let currentIndex = -1;
+        let currentProjectImages = [];
+        let currentImageIndex = 0;
         
         async function loadData() {
             try {
@@ -263,8 +264,12 @@
                 projectCard.setAttribute('aria-label', `View ${item.title}`);
 
                 // Image thumbnail
+                // Skip this item if it has no images array or it's empty
+                if (!Array.isArray(item.images) || item.images.length === 0) {
+                    return;
+                }                
                 const img = document.createElement('img');
-                img.src = item.src;
+                img.src = item.images[0];
                 img.alt = item.title;
                 img.classList.add('thumbnail', 'rounded-t-xl');
                 img.onerror = function() {
@@ -359,15 +364,43 @@
          * Opens the image modal with the specified item's data.
          * @param {Object} item - The screenshot object containing all its metadata.
          */
-         function openModal(item) {
-            currentIndex = currentFilteredList.findIndex(i => i === item);
-            if (currentIndex === -1) {
-                console.warn("Item not found in filtered list.");
-                currentFilteredList = screenshotsData; // fallback
-                currentIndex = currentFilteredList.findIndex(i => i === item);
-            }
+        function openModal(item) {
+            currentProjectImages = item.images; // fallback for old data
+            currentImageIndex = 0;
+            updateModalImage();
 
-            updateModal(currentFilteredList[currentIndex]);
+            modalTitle.textContent = item.title;
+            modalDescription.textContent = item.description || '';
+            modalIndustry.textContent = item.industry ? `Industry: ${item.industry}` : '';
+            modalTools.textContent = item.tools ? `Tools: ${item.tools.join(', ')}` : '';
+            modalVisuals.textContent = item.visuals ? `Visuals: ${item.visuals.join(', ')}` : '';
+
+            // Toggle arrow visibility
+            const showArrows = currentProjectImages.length > 1;
+            document.getElementById('prev-img').style.display = showArrows ? 'block' : 'none';
+            document.getElementById('next-img').style.display = showArrows ? 'block' : 'none';
+
+            imageModal.classList.remove('hidden');
+            imageModal.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function updateModalImage() {
+            const image = currentProjectImages[currentImageIndex];
+            modalImage.src = image;
+            modalImage.alt = `Screenshot ${currentImageIndex + 1} of ${currentProjectImages.length}`;
+        }
+
+        function showPrevImage() {
+            if (currentProjectImages.length === 0) return;
+            currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+            updateModalImage();
+        }
+
+        function showNextImage() {
+            if (currentProjectImages.length === 0) return;
+            currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
+            updateModalImage();
         }
 
 
@@ -439,20 +472,21 @@
             }
         });
 
+        document.addEventListener('keydown', (event) => {
+            if (imageModal.classList.contains('hidden')) return;
+
+            if (event.key === 'ArrowLeft') {
+                showPrevImage();
+            } else if (event.key === 'ArrowRight') {
+                showNextImage();
+            }
+        });
+        
         // --- Initial Load ---
         document.addEventListener('DOMContentLoaded', loadData);
 
-        document.getElementById('prev-item').addEventListener('click', () => {
-            if (currentFilteredList.length === 0) return;
-            currentIndex = (currentIndex - 1 + currentFilteredList.length) % currentFilteredList.length;
-            updateModal(currentFilteredList[currentIndex]);
-        });
-
-        document.getElementById('next-item').addEventListener('click', () => {
-            if (currentFilteredList.length === 0) return;
-            currentIndex = (currentIndex + 1) % currentFilteredList.length;
-            updateModal(currentFilteredList[currentIndex]);
-        });
+        document.getElementById('prev-img').addEventListener('click', showPrevImage);
+        document.getElementById('next-img').addEventListener('click', showNextImage);
 
     </script>
 </body>
